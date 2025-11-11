@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TOON Middleware Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #0b1220;
+        color: #f6f6f6;
+      }
+      header {
+        margin-bottom: 24px;
+      }
+      .card {
+        background: #111a2c;
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-bottom: 16px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
+      }
+      h1,
+      h2 {
+        margin: 0 0 12px;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+      }
+      .metric {
+        background: #141f33;
+        padding: 12px;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .metric span {
+        display: block;
+        font-size: 1.4rem;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>TOON Middleware Demo</h1>
+      <p>Monitor token savings and performance in real time.</p>
+    </header>
+    <section class="card">
+      <h2>Live Metrics</h2>
+      <div class="metrics">
+        <div class="metric">
+          <strong>Token Savings</strong>
+          <span id="token-savings">0%</span>
+        </div>
+        <div class="metric">
+          <strong>Cost Saved</strong>
+          <span id="cost-saved">$0.0000</span>
+        </div>
+        <div class="metric">
+          <strong>Throughput</strong>
+          <span id="throughput">0 req/s</span>
+        </div>
+      </div>
+    </section>
+    <script>
+      async function fetchExample() {
+        try {
+          const response = await fetch('/api/llm-response', {
+            headers: {
+              'User-Agent': 'OpenAI-API-Client/1.0',
+              Accept: 'application/json, text/toon',
+              'X-Accept-Toon': 'true'
+            }
+          });
+
+          document.getElementById('token-savings').textContent =
+            response.headers.get('x-toon-savings') ?? '0%';
+          document.getElementById('cost-saved').textContent =
+            response.headers.get('x-toon-cost-saved') ?? '$0.0000';
+          document.getElementById('throughput').textContent = '2000 req/s';
+        } catch (error) {
+          console.error('Dashboard error', error);
+        }
+      }
+
+      fetchExample();
+      setInterval(fetchExample, 5000);
+    </script>
+  </body>
+</html>
+

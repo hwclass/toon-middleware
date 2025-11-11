@@ -1,0 +1,11 @@
+{
+  "name": "@toon-middleware/benchmarks",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "performance.js",
+  "scripts": {
+    "start": "node performance.js"
+  }
+}
+

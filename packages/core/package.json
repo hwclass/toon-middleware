@@ -1,0 +1,23 @@
+{
+  "name": "@toon-middleware/core",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "test": "node --test",
+    "test:coverage": "node --test --experimental-test-coverage",
+    "test:watch": "node --test --watch",
+    "benchmark": "node benchmarks/performance.js",
+    "lint": "eslint src/ tests/",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@toon-format/toon": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^24.0.0"
+  }
+}
+

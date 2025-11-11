@@ -1,0 +1,25 @@
+{
+  "name": "@toon-middleware/shell-express",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node --test",
+    "test:integration": "node --test tests/integration/",
+    "lint": "eslint src/ tests/"
+  },
+  "dependencies": {
+    "@toon-middleware/core": "workspace:*",
+    "@toon-middleware/utils": "workspace:*",
+    "@toon-middleware/shell-cache": "workspace:*",
+    "@toon-middleware/shell-logger": "workspace:*",
+    "express": "^4.21.0"
+  },
+  "peerDependencies": {
+    "express": ">=4.0.0"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0"
+  }
+}
+

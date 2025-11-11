@@ -1,0 +1,13 @@
+{
+  "name": "@toon-middleware/utils",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node --test",
+    "lint": "eslint src/ tests/"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
+

@@ -1,0 +1,14 @@
+packages:
+  - 'packages/*'
+  - 'tools/*'
+
+prefer-workspace-packages: true
+save-workspace-protocol: true
+
+hoist-pattern:
+  - '*eslint*'
+  - '*prettier*'
+  - '*typescript*'
+
+link-workspace-packages: true
+

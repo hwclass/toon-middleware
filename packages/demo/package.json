@@ -1,0 +1,19 @@
+{
+  "name": "@toon-middleware/demo",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "NODE_ENV=development node src/server.js",
+    "lint": "eslint src/",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@toon-middleware/shell-express": "workspace:*",
+    "@toon-middleware/utils": "workspace:*",
+    "express": "^4.21.0",
+    "morgan": "^1.10.0"
+  }
+}
+
