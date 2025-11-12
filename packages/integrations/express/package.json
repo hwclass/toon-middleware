@@ -1,5 +1,5 @@
 {
-  "name": "@toon-middleware/shell-express",
+  "name": "@toon-middleware/express",
   "version": "1.0.0",
   "type": "module",
   "main": "src/index.js",
@@ -11,8 +11,8 @@
   "dependencies": {
     "@toon-middleware/core": "workspace:*",
     "@toon-middleware/utils": "workspace:*",
-    "@toon-middleware/shell-cache": "workspace:*",
-    "@toon-middleware/shell-logger": "workspace:*",
+    "@toon-middleware/cache": "workspace:*",
+    "@toon-middleware/logger": "workspace:*",
     "express": "^4.21.0"
   },
   "peerDependencies": {

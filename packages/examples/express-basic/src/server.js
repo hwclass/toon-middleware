@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { createExpressToonMiddleware } from '@toon-middleware/shell-express';
+import { createExpressToonMiddleware } from '@toon-middleware/express';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

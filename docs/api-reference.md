@@ -36,7 +36,7 @@
 - `SavingsInfo` → default savings structure
 - `ConversionResult` → default conversion result shape
 
-## `@toon-middleware/shell-express`
+## `@toon-middleware/express`
 
 - `createExpressToonMiddleware(options?)` → Express middleware function
 - `TOONMiddlewareError` → custom error class
@@ -54,11 +54,11 @@
 | `confidenceThreshold` | number | `0.8` | LLM detection threshold |
 | `pricing.per1K` | number | `0.002` | Token cost per 1000 tokens |
 
-## `@toon-middleware/shell-cache`
+## `@toon-middleware/cache`
 
 - `CacheManager` → Event-driven TTL cache with stats and eviction
 
-## `@toon-middleware/shell-logger`
+## `@toon-middleware/logger`
 
 - `createLogger(level?, transport?)`
 - `logger` → default shared logger instance
@@ -71,7 +71,7 @@
 
 ## Demo Package
 
-- `@toon-middleware/demo` → Starts an Express demo server with dashboard and sample client
+- `@toon-middleware/example-express` → Starts an Express demo server with dashboard and sample client
 
 Refer to the respective package READMEs and tests for further usage examples.
 

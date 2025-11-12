@@ -16,27 +16,37 @@ toon-middleware/
 ├── pnpm-workspace.yaml        # Workspace configuration
 ├── packages/
 │   ├── core/                  # Pure business logic (converters, detectors, analytics)
-│   ├── shell-express/         # Express middleware shell (currently available)
-│   ├── shell-nest/            # NestJS module (planned)
-│   ├── shell-fastify/         # Fastify plugin (planned)
-│   ├── shell-cache/           # Cache manager implementation
-│   ├── shell-logger/          # Logger factory and transports
+│   ├── integrations/          # Framework-specific adapters
+│   │   ├── express/           # Express middleware (currently available)
+│   │   ├── nest/              # NestJS module (planned)
+│   │   └── fastify/           # Fastify plugin (planned)
+│   ├── plugins/               # Pluggable infrastructure
+│   │   ├── cache/             # Cache manager implementation
+│   │   └── logger/            # Logger factory and transports
 │   ├── utils/                 # Shared constants and helpers
-│   └── demo/                  # Demo server, client, and dashboard
+│   └── examples/              # Example applications
+│       └── express-basic/     # Express demo server and dashboard
 ├── tools/                     # Benchmarks, scripts, configs
 └── docs/                      # Architecture, API reference, examples
 ```
 
 ### Workspace Packages
+
+**Core:**
 - `@toon-middleware/core` — TOON converters, client detectors, savings analytics, optimizers, validators
-- `@toon-middleware/shell-express` — Express middleware, error boundaries, analytics adapter (shipping)
-- `@toon-middleware/shell-nest` — NestJS integration module (planned)
-- `@toon-middleware/shell-fastify` — Fastify plugin (planned)
-- `@toon-middleware/shell-cache` — Event-driven TTL cache with pluggable storage strategies
-- `@toon-middleware/shell-logger` — Level aware logger factory with structured output
 - `@toon-middleware/utils` — Shared helpers for request IDs, validation, and header detection
-- `@toon-middleware/demo` — Sample application and dashboard demonstrating savings in real time
-- `@toon-middleware/benchmarks` — Performance benchmark runner
+
+**Integrations (Framework Adapters):**
+- `@toon-middleware/express` — Express middleware, error boundaries, analytics adapter (available)
+- `@toon-middleware/nest` — NestJS integration module (planned)
+- `@toon-middleware/fastify` — Fastify plugin (planned)
+
+**Plugins (Infrastructure):**
+- `@toon-middleware/cache` — Event-driven TTL cache with pluggable storage strategies
+- `@toon-middleware/logger` — Level aware logger factory with structured output
+
+**Examples:**
+- `@toon-middleware/example-express` — Sample application and dashboard demonstrating savings in real time
 
 ## Getting Started
 1. Install prerequisites
@@ -85,11 +95,11 @@ Targets:
 
 ## Demo Walkthrough
 1. Start the Express demo server: `pnpm demo`
-2. Run the sample client: `pnpm --filter demo start -- --client`
+2. Run the sample client: `pnpm --filter example-express start -- --client`
 3. Observe response headers (`x-toon-savings`, `x-toon-tokens`, `x-toon-cost-saved`) and dashboard metrics.
 
 ## Roadmap
-- **Shell adapters:** NestJS module, Fastify plugin, and lightweight Fetch-first middleware
+- **Framework integrations:** NestJS module, Fastify plugin, and lightweight Fetch-first middleware
 - **Caching:** Redis and edge KV storage adapters
 - **Observability:** OpenTelemetry traces and structured metrics exporters
 - **Benchmarks:** Distributed load harness spanning multiple frameworks

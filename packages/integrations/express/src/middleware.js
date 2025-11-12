@@ -4,8 +4,8 @@ import {
   convertFromTOON,
   calculateSavings
 } from '@toon-middleware/core';
-import { CacheManager } from '@toon-middleware/shell-cache';
-import { logger as baseLogger } from '@toon-middleware/shell-logger';
+import { CacheManager } from '@toon-middleware/cache';
+import { logger as baseLogger } from '@toon-middleware/logger';
 import {
   DEFAULT_CONFIG,
   generateRequestId,

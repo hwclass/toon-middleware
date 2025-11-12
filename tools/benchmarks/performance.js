@@ -30,7 +30,7 @@ export class PerformanceBenchmark {
     console.log('🏁 Running Imperative Shell Benchmarks...');
 
     const express = (await import('express')).default;
-    const { createExpressToonMiddleware } = await import('@toon-middleware/shell-express');
+    const { createExpressToonMiddleware } = await import('@toon-middleware/express');
 
     const app = express();
     app.use(express.json());
