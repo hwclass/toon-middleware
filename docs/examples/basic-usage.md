@@ -9,7 +9,7 @@ pnpm --filter shell-express build
 
 ```javascript
 import express from 'express';
-import { createExpressToonMiddleware } from '@toon-middleware/shell-express';
+import { createExpressToonMiddleware } from '@toon-middleware/express';
 
 const app = express();
 app.use(express.json());

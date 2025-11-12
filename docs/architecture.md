@@ -14,7 +14,7 @@ TOON Middleware embraces a **Functional Core – Imperative Shell** architecture
 
 ## Imperative Shell
 
-- Packages: `@toon-middleware/shell-express`, `@toon-middleware/shell-cache`, `@toon-middleware/shell-logger`
+- Packages: `@toon-middleware/express`, `@toon-middleware/cache`, `@toon-middleware/logger`
 - Responsibilities: HTTP integration, caching, logging, telemetry
 - Characteristics:
   - Explicit handling of side effects
