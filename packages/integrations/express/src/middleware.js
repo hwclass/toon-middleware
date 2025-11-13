@@ -104,7 +104,6 @@ export function createExpressToonMiddleware(options = {}) {
         await handleRequestConversion(req, {
           requestId,
           cache,
-          analytics,
           logger
         });
       }

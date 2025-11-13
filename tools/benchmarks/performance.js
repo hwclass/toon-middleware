@@ -1,8 +1,4 @@
 import { performance } from 'node:perf_hooks';
-import { fileURLToPath } from 'node:url';
-import { dirname } from 'node:path';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export class PerformanceBenchmark {
   constructor() {
