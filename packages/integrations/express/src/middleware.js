@@ -33,7 +33,7 @@ export function createExpressToonMiddleware(options = {}) {
   const analytics = config.analytics ? new AnalyticsTracker(config.analyticsOptions) : null;
   const logger = config.logger || baseLogger;
 
-  return async function toonMiddleware(req, res, next) {
+  const middleware = async function toonMiddleware(req, res, next) {
     const startTime = toBigIntTime();
     const requestId = req.headers['x-request-id'] || generateRequestId();
 
@@ -104,7 +104,6 @@ export function createExpressToonMiddleware(options = {}) {
         await handleRequestConversion(req, {
           requestId,
           cache,
-          analytics,
           logger
         });
       }
@@ -131,6 +130,12 @@ export function createExpressToonMiddleware(options = {}) {
       next(new TOONMiddlewareError('Middleware execution failed', error));
     }
   };
+
+  // Expose analytics and cache for testing and external access
+  middleware.analytics = analytics;
+  middleware.cache = cache;
+
+  return middleware;
 }
 
 async function handleTOONConversion(data, req, res, context) {

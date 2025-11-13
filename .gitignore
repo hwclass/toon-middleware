@@ -2,6 +2,13 @@ node_modules
 dist
 .turbo
 .pnpm-debug.log
-coverage
 .DS_Store
+
+# Test coverage
+coverage/
+.coverage
+*.lcov
+.nyc_output/
+coverage.json
+.coverage.*
 

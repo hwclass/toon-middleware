@@ -5,6 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "node --test",
+    "test:coverage": "node --test --experimental-test-coverage",
+    "test:watch": "node --test --watch",
     "lint": "eslint src/ tests/"
   },
   "dependencies": {},

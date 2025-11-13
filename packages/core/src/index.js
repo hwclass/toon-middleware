@@ -21,19 +21,3 @@ export const ClientType = Object.freeze({
   REGULAR: 'regular'
 });
 
-export const SavingsInfo = Object.freeze({
-  tokens: 0,
-  percentage: 0,
-  cost: 0,
-  spaceEfficiency: 0
-});
-
-export const ConversionResult = Object.freeze({
-  success: false,
-  data: null,
-  error: null,
-  originalSize: 0,
-  convertedSize: 0,
-  compressionRatio: 1
-});
-
