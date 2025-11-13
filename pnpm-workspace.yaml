@@ -9,6 +9,8 @@ hoist-pattern:
   - '*eslint*'
   - '*prettier*'
   - '*typescript*'
+  - 'express'
+  - 'supertest'
 
 link-workspace-packages: true
 
