@@ -1,5 +1,5 @@
 packages:
-  - 'packages/*'
+  - 'packages/**'
   - 'tools/*'
 
 prefer-workspace-packages: true
@@ -11,6 +11,8 @@ hoist-pattern:
   - '*typescript*'
   - 'express'
   - 'supertest'
+  - '@nestjs/*'
+  - 'rxjs'
 
 link-workspace-packages: true
 
