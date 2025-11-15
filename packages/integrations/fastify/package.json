@@ -1,23 +1,47 @@
 {
   "name": "@toon-middleware/fastify",
   "version": "1.0.0",
-  "description": "Fastify plugin for TOON middleware",
+  "description": "Fastify plugin for TOON format - Automatic token optimization for LLM API responses",
   "type": "module",
   "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "fastify",
+    "fastify-plugin",
+    "plugin",
+    "toon",
+    "llm",
+    "token-optimization",
+    "api-optimization",
+    "cost-reduction"
+  ],
+  "author": "hwclass",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toon-format/toon-middleware.git",
+    "directory": "packages/integrations/fastify"
+  },
+  "bugs": {
+    "url": "https://github.com/toon-format/toon-middleware/issues"
+  },
+  "homepage": "https://github.com/toon-format/toon-middleware/tree/main/packages/integrations/fastify#readme",
   "scripts": {
     "test": "node --test",
     "test:coverage": "node --test --experimental-test-coverage",
     "test:watch": "node --test --watch",
     "lint": "eslint src/ tests/"
   },
-  "keywords": [
-    "fastify",
-    "fastify-plugin",
-    "middleware",
-    "toon",
-    "llm",
-    "token-optimization"
-  ],
   "dependencies": {
     "@toon-middleware/core": "workspace:*",
     "@toon-middleware/utils": "workspace:*",

@@ -1,10 +1,47 @@
 {
   "name": "@toon-middleware/nest",
   "version": "1.0.0",
-  "description": "NestJS integration for TOON middleware",
+  "description": "NestJS module for TOON format - Automatic token optimization for LLM API responses",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "nestjs",
+    "middleware",
+    "interceptor",
+    "toon",
+    "llm",
+    "token-optimization",
+    "api-optimization",
+    "cost-reduction",
+    "typescript"
+  ],
+  "author": "hwclass",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toon-format/toon-middleware.git",
+    "directory": "packages/integrations/nest"
+  },
+  "bugs": {
+    "url": "https://github.com/toon-format/toon-middleware/issues"
+  },
+  "homepage": "https://github.com/toon-format/toon-middleware/tree/main/packages/integrations/nest#readme",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
@@ -13,15 +50,9 @@
     "test:watch": "tsc -p tsconfig.test.json --watch",
     "lint": "eslint src/ tests/",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist dist-test"
+    "clean": "rm -rf dist dist-test",
+    "prepublishOnly": "npm run build"
   },
-  "keywords": [
-    "nestjs",
-    "middleware",
-    "toon",
-    "llm",
-    "token-optimization"
-  ],
   "dependencies": {
     "@toon-middleware/core": "workspace:*",
     "@toon-middleware/utils": "workspace:*",
@@ -31,7 +62,8 @@
   "peerDependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
-    "rxjs": "^7.0.0"
+    "rxjs": "^7.0.0",
+    "reflect-metadata": "^0.1.0 || ^0.2.0"
   },
   "devDependencies": {
     "@nestjs/common": "^10.3.0",

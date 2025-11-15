@@ -1,9 +1,44 @@
 {
   "name": "@toon-middleware/core",
   "version": "1.0.0",
+  "description": "Core business logic for TOON middleware - converters, detectors, and analytics",
   "type": "module",
   "main": "src/index.js",
   "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "types": "./types/index.d.ts"
+    }
+  },
+  "files": [
+    "src",
+    "types",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "toon",
+    "middleware",
+    "llm",
+    "token-optimization",
+    "serialization",
+    "compression"
+  ],
+  "author": "hwclass",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toon-format/toon-middleware.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/toon-format/toon-middleware/issues"
+  },
+  "homepage": "https://github.com/toon-format/toon-middleware#readme",
   "scripts": {
     "test": "node --test",
     "test:coverage": "node --test --experimental-test-coverage",

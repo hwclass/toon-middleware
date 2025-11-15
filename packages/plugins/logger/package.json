@@ -1,8 +1,38 @@
 {
   "name": "@toon-middleware/logger",
   "version": "1.0.0",
+  "description": "Level-aware structured logger for TOON middleware",
   "type": "module",
   "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "logger",
+    "logging",
+    "structured-logging",
+    "toon",
+    "middleware"
+  ],
+  "author": "hwclass",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toon-format/toon-middleware.git",
+    "directory": "packages/plugins/logger"
+  },
+  "bugs": {
+    "url": "https://github.com/toon-format/toon-middleware/issues"
+  },
+  "homepage": "https://github.com/toon-format/toon-middleware#readme",
   "scripts": {
     "test": "node --test",
     "test:coverage": "node --test --experimental-test-coverage",
