@@ -1,8 +1,40 @@
 {
   "name": "@toon-middleware/express",
   "version": "1.0.0",
+  "description": "Express middleware for TOON format - Automatic token optimization for LLM API responses",
   "type": "module",
   "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "express",
+    "middleware",
+    "toon",
+    "llm",
+    "token-optimization",
+    "api-optimization",
+    "cost-reduction"
+  ],
+  "author": "hwclass",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toon-format/toon-middleware.git",
+    "directory": "packages/integrations/express"
+  },
+  "bugs": {
+    "url": "https://github.com/toon-format/toon-middleware/issues"
+  },
+  "homepage": "https://github.com/toon-format/toon-middleware/tree/main/packages/integrations/express#readme",
   "scripts": {
     "test": "node --test",
     "test:coverage": "node --test --experimental-test-coverage",
@@ -14,13 +46,13 @@
     "@toon-middleware/core": "workspace:*",
     "@toon-middleware/utils": "workspace:*",
     "@toon-middleware/cache": "workspace:*",
-    "@toon-middleware/logger": "workspace:*",
-    "express": "^4.21.0"
+    "@toon-middleware/logger": "workspace:*"
   },
   "peerDependencies": {
     "express": ">=4.0.0"
   },
   "devDependencies": {
+    "express": "^4.21.0",
     "supertest": "^7.0.0"
   }
 }

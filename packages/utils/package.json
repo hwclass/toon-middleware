@@ -1,8 +1,37 @@
 {
   "name": "@toon-middleware/utils",
   "version": "1.0.0",
+  "description": "Shared utilities for TOON middleware - request IDs, validation, helpers",
   "type": "module",
   "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "toon",
+    "middleware",
+    "utilities",
+    "helpers"
+  ],
+  "author": "hwclass",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toon-format/toon-middleware.git",
+    "directory": "packages/utils"
+  },
+  "bugs": {
+    "url": "https://github.com/toon-format/toon-middleware/issues"
+  },
+  "homepage": "https://github.com/toon-format/toon-middleware#readme",
   "scripts": {
     "test": "node --test",
     "test:coverage": "node --test --experimental-test-coverage",
