@@ -25,7 +25,7 @@ Slash 30-70% off your API costs instantly with zero contract changes.
 - **🚀 High Performance** - <3ms middleware overhead, >2000 req/s throughput
 - **🧩 Pluggable Architecture** - Swap cache, logger, or add custom detectors
 - **🏗️ Functional Core** - Pure, deterministic, side-effect-free business logic
-- **📦 Framework Ready** - Express today, NestJS & Fastify coming soon
+- **📦 Framework Ready** - Express & NestJS today, Fastify coming soon
 
 ---
 
@@ -56,12 +56,18 @@ users[2]{id,name,role}:
 
 ### Installation
 
+**Express:**
 ```bash
 npm install @toon-middleware/express
 # or
 pnpm add @toon-middleware/express
+```
+
+**NestJS:**
+```bash
+npm install @toon-middleware/nest
 # or
-yarn add @toon-middleware/express
+pnpm add @toon-middleware/nest
 ```
 
 ### Basic Usage
@@ -312,6 +318,131 @@ app.get('/api/data', (req, res) => {
 });
 ```
 
+### NestJS Integration
+
+#### Basic Setup
+
+```typescript
+// app.module.ts
+import { Module } from '@nestjs/common';
+import { ToonModule } from '@toon-middleware/nest';
+
+@Module({
+  imports: [
+    ToonModule.forRoot({
+      autoConvert: true,
+      cache: true,
+      analytics: true
+    })
+  ],
+  controllers: [UsersController]
+})
+export class AppModule {}
+```
+
+```typescript
+// users.controller.ts
+import { Controller, Get } from '@nestjs/common';
+
+@Controller('api')
+export class UsersController {
+  @Get('users')
+  getUsers() {
+    return {
+      users: [
+        { id: 1, name: 'Alice', email: 'alice@example.com', role: 'admin' },
+        { id: 2, name: 'Bob', email: 'bob@example.com', role: 'user' }
+      ]
+    };
+  }
+}
+```
+
+**That's it!** LLM clients automatically receive TOON format, browsers get JSON.
+
+#### Advanced Configuration
+
+```typescript
+import { ToonModule } from '@toon-middleware/nest';
+
+@Module({
+  imports: [
+    ToonModule.forRoot({
+      autoConvert: true,
+      confidenceThreshold: 0.8,
+
+      cache: true,
+      cacheOptions: {
+        maxSize: 1000,
+        ttl: 300000
+      },
+
+      analytics: true,
+      analyticsOptions: {
+        enabled: true
+      },
+
+      pricing: {
+        per1K: 0.002
+      },
+
+      // Make module global (optional)
+      global: true
+    })
+  ]
+})
+export class AppModule {}
+```
+
+#### Async Configuration with ConfigService
+
+```typescript
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ToonModule } from '@toon-middleware/nest';
+
+@Module({
+  imports: [
+    ConfigModule.forRoot(),
+    ToonModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        autoConvert: configService.get('TOON_AUTO_CONVERT', true),
+        cache: configService.get('TOON_CACHE_ENABLED', true),
+        analytics: configService.get('TOON_ANALYTICS_ENABLED', true)
+      })
+    })
+  ]
+})
+export class AppModule {}
+```
+
+#### Listening to Analytics Events
+
+```typescript
+import { Injectable, OnModuleInit, Inject } from '@nestjs/common';
+import { AnalyticsTracker } from '@toon-middleware/nest';
+
+@Injectable()
+export class AnalyticsService implements OnModuleInit {
+  constructor(
+    @Inject('TOON_ANALYTICS') private analytics: AnalyticsTracker
+  ) {}
+
+  onModuleInit() {
+    if (this.analytics) {
+      this.analytics.on('conversion', (payload) => {
+        console.log('TOON Conversion:', {
+          path: payload.path,
+          savings: payload.savings.percentage,
+          tokensSaved: payload.savings.tokens
+        });
+      });
+    }
+  }
+}
+```
+
 ### Client Usage
 
 #### Making Requests
@@ -362,8 +493,8 @@ toon-middleware/
 │   ├── core/                  # Pure business logic (converters, detectors, analytics)
 │   ├── integrations/          # Framework-specific adapters
 │   │   ├── express/           # Express middleware ✅
-│   │   ├── nest/              # NestJS module (planned)
-│   │   └── fastify/           # Fastify plugin (planned)
+│   │   ├── nest/              # NestJS module ✅ (TypeScript)
+│   │   └── fastify/           # Fastify plugin (coming soon)
 │   ├── plugins/               # Pluggable infrastructure
 │   │   ├── cache/             # Cache manager implementation
 │   │   └── logger/            # Logger factory and transports
@@ -380,8 +511,8 @@ toon-middleware/
 - `@toon-middleware/utils` — Shared helpers for request IDs, validation, header detection
 
 **Integrations:**
-- `@toon-middleware/express` — Express middleware (available now)
-- `@toon-middleware/nest` — NestJS module (coming soon)
+- `@toon-middleware/express` — Express middleware (JavaScript)
+- `@toon-middleware/nest` — NestJS module with interceptors and DI (TypeScript)
 - `@toon-middleware/fastify` — Fastify plugin (coming soon)
 
 **Plugins:**
@@ -469,7 +600,7 @@ pnpm benchmark
 - [x] In-memory caching with TTL
 - [x] Real-time analytics and savings tracking
 - [x] Performance benchmarks
-- [ ] NestJS module
+- [x] NestJS module with TypeScript support
 - [ ] Fastify plugin
 - [ ] Redis cache adapter
 - [ ] OpenTelemetry integration
