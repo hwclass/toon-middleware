@@ -9,13 +9,20 @@ export class AnalyticsTracker extends EventEmitter {
     };
   }
 
-  trackConversion(req, savings) {
+  trackConversion(req, savingsData) {
     if (!this.options.enabled) return;
 
     const payload = {
       path: req.path,
       method: req.method,
-      savings,
+      savings: {
+        percentage: savingsData.savings.percentage,
+        tokens: savingsData.savings.tokens,
+        cost: savingsData.savings.cost,
+        compressionRatio: savingsData.metrics.compressionRatio,
+        original: savingsData.original,
+        converted: savingsData.converted
+      },
       timestamp: Date.now()
     };
 

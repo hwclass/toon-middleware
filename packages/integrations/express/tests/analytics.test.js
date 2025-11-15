@@ -11,13 +11,26 @@ describe('AnalyticsTracker', () => {
       method: 'GET'
     };
 
-    const mockSavings = {
+    const mockSavingsData = {
+      savings: {
+        percentage: 42.5,
+        tokens: 102,
+        cost: 0.0002
+      },
+      metrics: {
+        compressionRatio: 0.575
+      },
+      original: { tokens: 240, size: 960 },
+      converted: { tokens: 138, size: 552 }
+    };
+
+    const expectedSavings = {
       percentage: 42.5,
       tokens: 102,
       cost: 0.0002,
+      compressionRatio: 0.575,
       original: { tokens: 240, size: 960 },
-      converted: { tokens: 138, size: 552 },
-      compressionRatio: 0.575
+      converted: { tokens: 138, size: 552 }
     };
 
     tracker.on('conversion', (payload) => {
@@ -26,7 +39,7 @@ describe('AnalyticsTracker', () => {
         assert.ok(payload, 'Payload should exist');
         assert.equal(payload.path, '/api/users', 'Path should match');
         assert.equal(payload.method, 'GET', 'Method should match');
-        assert.deepEqual(payload.savings, mockSavings, 'Savings should match');
+        assert.deepEqual(payload.savings, expectedSavings, 'Savings should match');
         assert.ok(payload.timestamp, 'Timestamp should exist');
         assert.equal(typeof payload.timestamp, 'number', 'Timestamp should be a number');
         done();
@@ -35,7 +48,7 @@ describe('AnalyticsTracker', () => {
       }
     });
 
-    tracker.trackConversion(mockReq, mockSavings);
+    tracker.trackConversion(mockReq, mockSavingsData);
   });
 
   test('should emit error event with correct payload', (t, done) => {
@@ -113,9 +126,14 @@ describe('AnalyticsTracker', () => {
     }
 
     const mockReq = { path: '/test', method: 'POST' };
-    const mockSavings = { percentage: 30 };
+    const mockSavingsData = {
+      savings: { percentage: 30, tokens: 10, cost: 0.001 },
+      metrics: { compressionRatio: 0.5 },
+      original: { tokens: 20, size: 100 },
+      converted: { tokens: 10, size: 50 }
+    };
 
-    tracker.trackConversion(mockReq, mockSavings);
+    tracker.trackConversion(mockReq, mockSavingsData);
   });
 
   test('should default to enabled when no options provided', () => {
@@ -176,7 +194,15 @@ describe('AnalyticsTracker', () => {
     });
 
     expectedPaths.forEach(path => {
-      tracker.trackConversion({ path, method: 'GET' }, { percentage: 40 });
+      tracker.trackConversion(
+        { path, method: 'GET' },
+        {
+          savings: { percentage: 40, tokens: 10, cost: 0.001 },
+          metrics: { compressionRatio: 0.5 },
+          original: { tokens: 20, size: 100 },
+          converted: { tokens: 10, size: 50 }
+        }
+      );
     });
   });
 });

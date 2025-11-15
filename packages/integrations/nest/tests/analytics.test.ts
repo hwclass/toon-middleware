@@ -20,8 +20,10 @@ describe('AnalyticsTracker', () => {
       savings: {
         percentage: 45.5,
         tokens: 100,
-        cost: 0.002,
-        compressionRatio: 1.8
+        cost: 0.002
+      },
+      metrics: {
+        compressionRatio: 0.55
       },
       original: {
         tokens: 220,
@@ -105,6 +107,7 @@ describe('AnalyticsTracker', () => {
       clientInfo: {}
     }, {
       savings: {},
+      metrics: { compressionRatio: 0.5 },
       original: {},
       converted: {}
     });
@@ -151,6 +154,7 @@ describe('AnalyticsTracker', () => {
         clientInfo: {}
       }, {
         savings: {},
+        metrics: { compressionRatio: 0.5 },
         original: {},
         converted: {}
       });
