@@ -68,7 +68,7 @@ export class AnalyticsTracker extends EventEmitter {
         percentage: savings.savings.percentage,
         tokens: savings.savings.tokens,
         cost: savings.savings.cost,
-        compressionRatio: savings.savings.compressionRatio
+        compressionRatio: savings.metrics.compressionRatio
       },
       original: {
         tokens: savings.original.tokens,

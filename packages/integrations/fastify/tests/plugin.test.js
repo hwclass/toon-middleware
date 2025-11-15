@@ -73,7 +73,7 @@ describe('Fastify TOON Plugin', () => {
     await fastify.close();
   });
 
-  test('should emit analytics conversion event when enabled', async (t, done) => {
+  test('should emit analytics conversion event when enabled', async () => {
     const fastify = Fastify();
 
     await fastify.register(toonPlugin, {
@@ -85,12 +85,11 @@ describe('Fastify TOON Plugin', () => {
       return { items: [{ id: 1 }, { id: 2 }] };
     });
 
-    // Access analytics via decorated property
-    fastify.toonAnalytics.on('conversion', (payload) => {
-      assert.ok(payload.savings);
-      assert.ok(payload.requestId);
-      assert.strictEqual(payload.clientType, 'LLM');
-      done();
+    // Create a promise to wait for the event
+    const eventPromise = new Promise((resolve) => {
+      fastify.toonAnalytics.on('conversion', (payload) => {
+        resolve(payload);
+      });
     });
 
     await fastify.inject({
@@ -100,6 +99,13 @@ describe('Fastify TOON Plugin', () => {
         'user-agent': 'Anthropic Claude/1.0'
       }
     });
+
+    // Wait for the analytics event
+    const payload = await eventPromise;
+
+    assert.ok(payload.savings);
+    assert.ok(payload.requestId);
+    assert.strictEqual(payload.clientType, 'LLM');
 
     await fastify.close();
   });
@@ -138,7 +144,7 @@ describe('Fastify TOON Plugin', () => {
     assert.strictEqual(eventEmitted, false);
   });
 
-  test('should include correct savings data in analytics event', async (t, done) => {
+  test('should include correct savings data in analytics event', async () => {
     const fastify = Fastify();
 
     await fastify.register(toonPlugin, {
@@ -155,13 +161,11 @@ describe('Fastify TOON Plugin', () => {
       };
     });
 
-    fastify.toonAnalytics.on('conversion', (payload) => {
-      const { savings } = payload;
-      assert.ok(savings.percentage >= 0);
-      assert.ok(savings.tokens > 0);
-      assert.ok(payload.original.tokens > payload.converted.tokens);
-      assert.ok(savings.compressionRatio > 1);
-      done();
+    // Create a promise to wait for the event
+    const eventPromise = new Promise((resolve) => {
+      fastify.toonAnalytics.on('conversion', (payload) => {
+        resolve(payload);
+      });
     });
 
     await fastify.inject({
@@ -172,6 +176,15 @@ describe('Fastify TOON Plugin', () => {
         'accept': 'text/plain'
       }
     });
+
+    // Wait for the analytics event
+    const payload = await eventPromise;
+    const { savings } = payload;
+
+    assert.ok(savings.percentage >= 0);
+    assert.ok(savings.tokens > 0);
+    assert.ok(payload.original.tokens > payload.converted.tokens);
+    assert.ok(savings.compressionRatio > 0 && savings.compressionRatio < 1, 'Compression ratio should be between 0 and 1');
 
     await fastify.close();
   });

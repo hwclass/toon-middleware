@@ -32,7 +32,10 @@ describe('Imperative Shell: Express Integration', () => {
     assert.ok(response.headers['x-toon-tokens']);
     assert.ok(response.headers['x-request-id']);
     assert.equal(response.headers['content-type'], 'text/plain; charset=utf-8');
-    assert.ok(response.text.startsWith('[') || response.text.startsWith('{'));
+    // Response should be in TOON format (not JSON)
+    assert.ok(response.text.length > 0, 'Response should have content');
+    assert.ok(!response.text.startsWith('{'), 'Response should not be JSON');
+    assert.ok(response.text.includes('users'), 'Response should contain users data');
   });
 
   test('should emit analytics conversion event when analytics is enabled', (t, done) => {

@@ -21,8 +21,10 @@ describe('AnalyticsTracker', () => {
       savings: {
         percentage: 45.5,
         tokens: 100,
-        cost: 0.002,
-        compressionRatio: 1.8
+        cost: 0.002
+      },
+      metrics: {
+        compressionRatio: 0.55
       },
       original: {
         tokens: 220,
@@ -96,9 +98,13 @@ describe('AnalyticsTracker', () => {
 
     tracker.on('conversion', () => {
       listener2Called = true;
-      assert.strictEqual(listener1Called, true);
-      assert.strictEqual(listener2Called, true);
-      done();
+      try {
+        assert.strictEqual(listener1Called, true);
+        assert.strictEqual(listener2Called, true);
+        done();
+      } catch (err) {
+        done(err);
+      }
     });
 
     tracker.trackConversion({
@@ -107,6 +113,7 @@ describe('AnalyticsTracker', () => {
       clientInfo: {}
     }, {
       savings: {},
+      metrics: { compressionRatio: 0.5 },
       original: {},
       converted: {}
     });
@@ -142,8 +149,12 @@ describe('AnalyticsTracker', () => {
       events.push(payload.requestId);
 
       if (events.length === 3) {
-        assert.deepStrictEqual(events, ['req-1', 'req-2', 'req-3']);
-        done();
+        try {
+          assert.deepStrictEqual(events, ['req-1', 'req-2', 'req-3']);
+          done();
+        } catch (err) {
+          done(err);
+        }
       }
     });
 
@@ -154,6 +165,7 @@ describe('AnalyticsTracker', () => {
         clientInfo: {}
       }, {
         savings: {},
+        metrics: { compressionRatio: 0.5 },
         original: {},
         converted: {}
       });
