@@ -25,7 +25,7 @@ Slash 30-70% off your API costs instantly with zero contract changes.
 - **🚀 High Performance** - <3ms middleware overhead, >2000 req/s throughput
 - **🧩 Pluggable Architecture** - Swap cache, logger, or add custom detectors
 - **🏗️ Functional Core** - Pure, deterministic, side-effect-free business logic
-- **📦 Framework Ready** - Express & NestJS today, Fastify coming soon
+- **📦 Framework Ready** - Express, NestJS & Fastify all available
 
 ---
 
@@ -68,6 +68,13 @@ pnpm add @toon-middleware/express
 npm install @toon-middleware/nest
 # or
 pnpm add @toon-middleware/nest
+```
+
+**Fastify:**
+```bash
+npm install @toon-middleware/fastify
+# or
+pnpm add @toon-middleware/fastify
 ```
 
 ### Basic Usage
@@ -443,6 +450,101 @@ export class AnalyticsService implements OnModuleInit {
 }
 ```
 
+### Fastify Integration
+
+#### Basic Setup
+
+```javascript
+import Fastify from 'fastify';
+import toonPlugin from '@toon-middleware/fastify';
+
+const fastify = Fastify({ logger: true });
+
+// Register TOON plugin
+await fastify.register(toonPlugin, {
+  autoConvert: true,
+  cache: true,
+  analytics: true
+});
+
+// Your routes work unchanged
+fastify.get('/api/users', async () => {
+  return {
+    users: [
+      { id: 1, name: 'Alice', role: 'admin' },
+      { id: 2, name: 'Bob', role: 'user' }
+    ]
+  };
+});
+
+await fastify.listen({ port: 3000 });
+```
+
+**That's it!** LLM clients automatically receive TOON format, browsers get JSON.
+
+#### Advanced Configuration
+
+```javascript
+import Fastify from 'fastify';
+import toonPlugin from '@toon-middleware/fastify';
+
+const fastify = Fastify();
+
+await fastify.register(toonPlugin, {
+  autoConvert: true,
+  confidenceThreshold: 0.8,
+
+  cache: true,
+  cacheOptions: {
+    maxSize: 1000,
+    ttl: 300000
+  },
+
+  analytics: true,
+  analyticsOptions: {
+    enabled: true
+  },
+
+  pricing: {
+    per1K: 0.002
+  }
+});
+
+fastify.get('/api/data', async () => {
+  return { items: [1, 2, 3] };
+});
+
+await fastify.listen({ port: 3000 });
+```
+
+#### Listening to Analytics Events
+
+```javascript
+import Fastify from 'fastify';
+import toonPlugin from '@toon-middleware/fastify';
+
+const fastify = Fastify();
+
+await fastify.register(toonPlugin, {
+  analytics: true
+});
+
+// Access analytics via decorated property
+fastify.toonAnalytics.on('conversion', (payload) => {
+  console.log('TOON Conversion:', {
+    path: payload.path,
+    savings: payload.savings.percentage,
+    tokensSaved: payload.savings.tokens
+  });
+});
+
+fastify.get('/api/test', async () => {
+  return { message: 'test' };
+});
+
+await fastify.listen({ port: 3000 });
+```
+
 ### Client Usage
 
 #### Making Requests
@@ -494,7 +596,7 @@ toon-middleware/
 │   ├── integrations/          # Framework-specific adapters
 │   │   ├── express/           # Express middleware ✅
 │   │   ├── nest/              # NestJS module ✅ (TypeScript)
-│   │   └── fastify/           # Fastify plugin (coming soon)
+│   │   └── fastify/           # Fastify plugin ✅
 │   ├── plugins/               # Pluggable infrastructure
 │   │   ├── cache/             # Cache manager implementation
 │   │   └── logger/            # Logger factory and transports
@@ -513,7 +615,7 @@ toon-middleware/
 **Integrations:**
 - `@toon-middleware/express` — Express middleware (JavaScript)
 - `@toon-middleware/nest` — NestJS module with interceptors and DI (TypeScript)
-- `@toon-middleware/fastify` — Fastify plugin (coming soon)
+- `@toon-middleware/fastify` — Fastify plugin (JavaScript)
 
 **Plugins:**
 - `@toon-middleware/cache` — Event-driven TTL cache with LRU eviction
@@ -601,7 +703,7 @@ pnpm benchmark
 - [x] Real-time analytics and savings tracking
 - [x] Performance benchmarks
 - [x] NestJS module with TypeScript support
-- [ ] Fastify plugin
+- [x] Fastify plugin
 - [ ] Redis cache adapter
 - [ ] OpenTelemetry integration
 - [ ] Metrics exporters (Prometheus, Datadog)
